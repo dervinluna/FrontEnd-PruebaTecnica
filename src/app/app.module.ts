@@ -8,7 +8,9 @@ import { PrestamoFormComponent } from './components/prestamo-form/prestamo-form.
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PlanPagosComponent } from './components/plan-pagos/plan-pagos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PrestamoListComponent,
     PrestamoFormComponent,
     PostsListComponent,
-    NavbarComponent
+    NavbarComponent,
+    PlanPagosComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi())
