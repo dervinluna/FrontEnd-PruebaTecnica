@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlanPagosService } from '../../services/plan-pagos.service';
 import { PlanPago } from '../../models/plan-pagos.model';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-plan-pagos',
@@ -12,20 +13,26 @@ export class PlanPagosComponent implements OnInit {
   planPagos: PlanPago[] = [];
   prestamoSeleccionado: number | null = null;
 
-  constructor(private planPagosService: PlanPagosService) {}
+  constructor(
+    private planPagosService: PlanPagosService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {}
 
   obtenerPlanDePagos(): void {
     if (!this.prestamoSeleccionado) {
-      alert('Por favor, ingrese un ID de préstamo.');
+      this.notificationService.showNotification('⚠️ Por favor, ingrese un ID de préstamo.', 'warning');
       return;
     }
 
     this.planPagosService.obtenerPlanDePagos(this.prestamoSeleccionado).subscribe({
-      next: (data) => this.planPagos = data,
+      next: (data) => {
+        this.planPagos = data;
+        this.notificationService.showNotification('✅ Plan de pagos cargado con éxito.', 'success');
+      },
       error: () => {
-        alert('No se encontró un plan de pagos para este préstamo.');
+        this.notificationService.showNotification('❌ No se encontró un plan de pagos para este préstamo.', 'danger');
         this.planPagos = [];
       }
     });
@@ -33,31 +40,36 @@ export class PlanPagosComponent implements OnInit {
 
   generarPlanDePagos(): void {
     if (!this.prestamoSeleccionado) {
-      alert('Por favor, ingrese un ID de préstamo.');
+      this.notificationService.showNotification('⚠️ Por favor, ingrese un ID de préstamo.', 'warning');
       return;
     }
 
     this.planPagosService.generarPlanDePagos(this.prestamoSeleccionado).subscribe({
       next: (data) => {
-        alert('Plan de pagos generado con éxito.');
-        this.planPagos = data; // 🔹 Almacenamos los datos directamente
+        this.planPagos = data;
+        this.notificationService.showNotification('✅ Plan de pagos generado con éxito.', 'success');
       },
-      error: () => alert('No se pudo generar el plan de pagos.')
+      error: () => {
+        this.notificationService.showNotification('❌ No se pudo generar el plan de pagos.', 'danger');
+      }
     });
   }
 
   eliminarPlanDePagos(): void {
     if (!this.prestamoSeleccionado) {
-      alert('Por favor, ingrese un ID de préstamo.');
+      this.notificationService.showNotification('⚠️ Por favor, ingrese un ID de préstamo.', 'warning');
       return;
     }
 
     this.planPagosService.eliminarPlanDePagos(this.prestamoSeleccionado).subscribe({
-      next: () => {
-        alert('Plan de pagos eliminado con éxito.');
-        this.planPagos = []; // 🔹 Limpiamos la tabla
+      next: (response) => {
+        this.planPagos = [];
+        this.notificationService.showNotification(response.mensaje, 'success'); // ✅ Usa el mensaje del backend
       },
-      error: () => alert('No se pudo eliminar el plan de pagos.')
+      error: (error) => {
+        this.notificationService.showNotification(error.error?.mensaje || '❌ No se pudo eliminar el plan de pagos.', 'danger');
+      }
     });
   }
+
 }

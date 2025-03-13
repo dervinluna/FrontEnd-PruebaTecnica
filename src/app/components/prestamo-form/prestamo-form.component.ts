@@ -65,6 +65,12 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
         this.prestamoService.agregarPrestamo(prestamo).subscribe({
           next: () => {
             this.notificationService.showNotification('✅ Préstamo agregado con éxito.', 'success');
+
+            // 🔹 Resetear el formulario después de agregar el préstamo
+            this.prestamoForm.reset();
+            this.prestamoForm.markAsPristine();
+            this.prestamoForm.markAsUntouched();
+
             this.cerrarModal.emit();
           },
           error: () => {
@@ -74,4 +80,5 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
       }
     }
   }
+
 }

@@ -19,7 +19,7 @@ export class PlanPagosService {
     return this.http.post<PlanPago[]>(`${this.apiUrl}/${prestamoId}/generar`, {});
   }
 
-  eliminarPlanDePagos(prestamoId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${prestamoId}/eliminar`);
+  eliminarPlanDePagos(prestamoId: number): Observable<{ mensaje: string }> { // ✅ Aquí especificamos que devuelve un objeto con `mensaje`
+    return this.http.delete<{ mensaje: string }>(`${this.apiUrl}/${prestamoId}/eliminar`);
   }
 }
