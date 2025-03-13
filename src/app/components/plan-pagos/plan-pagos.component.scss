@@ -1,0 +1,13 @@
+.table-container {
+  max-height: 400px; /* Altura máxima de la tabla */
+  overflow-y: auto; /* Habilita el scroll vertical */
+  border: 1px solid #ddd; /* Agrega un borde alrededor */
+}
+
+/* Fijar encabezado de la tabla */
+.table thead {
+  position: sticky;
+  top: 0;
+  background: #f8f9fa; /* Color de fondo */
+  z-index: 1;
+}
