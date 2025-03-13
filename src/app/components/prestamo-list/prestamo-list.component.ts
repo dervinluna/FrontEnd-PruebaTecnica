@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrestamoService } from '../../services/prestamo.service';
 import { Prestamo } from '../../models/prestamo.model';
 import * as bootstrap from 'bootstrap';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-prestamo-list',
@@ -13,7 +14,10 @@ export class PrestamoListComponent implements OnInit {
   prestamos: Prestamo[] = [];
   prestamoSeleccionado: Prestamo | null = null;
 
-  constructor(private prestamoService: PrestamoService) {}
+  constructor(
+    private prestamoService: PrestamoService,
+    private notificationService: NotificationService // 🔔 Inyectamos el servicio
+  ) {}
 
   ngOnInit(): void {
     this.cargarPrestamos();
@@ -29,19 +33,16 @@ export class PrestamoListComponent implements OnInit {
     if (confirm('¿Estás seguro de eliminar este préstamo?')) {
       this.prestamoService.eliminarPrestamo(id).subscribe({
         next: (response) => {
-          console.log('Respuesta al eliminar:', response);
-          alert(response.mensaje); // ✅ Ahora no dará error
+          this.notificationService.showNotification('Préstamo eliminado con éxito.', 'success'); // 🔔 Notificación de éxito
           this.prestamos = this.prestamos.filter(prestamo => prestamo.id !== id);
         },
         error: (error) => {
           console.error('Error al eliminar:', error);
-          alert(error.error?.mensaje || 'Error al eliminar el préstamo.');
+          this.notificationService.showNotification('Error al eliminar el préstamo.', 'danger'); // 🔔 Notificación de error
         }
       });
     }
   }
-
-
 
   // Método para abrir el modal y asignar datos si es edición
   abrirModal(prestamo?: Prestamo): void {
@@ -54,7 +55,6 @@ export class PrestamoListComponent implements OnInit {
       }
     }, 50);
   }
-
 
   // Método para cerrar el modal y actualizar la lista
   cerrarModal(): void {
