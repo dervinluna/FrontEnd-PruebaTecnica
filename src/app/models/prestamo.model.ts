@@ -4,5 +4,5 @@ export interface Prestamo {
   nombreCliente: string;
   monto: number;
   cuotas: number;
-  fechaRegistro: string;
+  fechaRegistro?: string;
 }

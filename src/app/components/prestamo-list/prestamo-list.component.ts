@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PrestamoService, Prestamo } from '../../services/prestamo.service';
+import { PrestamoService } from '../../services/prestamo.service';
+import { Prestamo } from '../../models/prestamo.model';
 import * as bootstrap from 'bootstrap';
 
 @Component({

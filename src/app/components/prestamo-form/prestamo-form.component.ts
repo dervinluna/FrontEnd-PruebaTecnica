@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PrestamoService, Prestamo } from '../../services/prestamo.service';
+import { PrestamoService } from '../../services/prestamo.service';
+import { Prestamo } from '../../models/prestamo.model';
 
 @Component({
   selector: 'app-prestamo-form',

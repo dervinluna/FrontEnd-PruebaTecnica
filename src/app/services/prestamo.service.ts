@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Prestamo {
-  id: number;
-  dpi: string;
-  nombreCliente: string;
-  monto: number;
-  cuotas: number;
-  fechaRegistro?: string;
-}
+import { Prestamo } from '../models/prestamo.model';
 
 @Injectable({
   providedIn: 'root'
