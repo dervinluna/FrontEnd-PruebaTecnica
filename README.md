@@ -1,7 +1,3 @@
-Aquí tienes el **README.md** para el **frontend** de tu proyecto. Este archivo explicará a los evaluadores cómo instalar, configurar y ejecutar la aplicación Angular. 🚀
-
----
-
 ### **📌 README.md**
 ```markdown
 # 📌 Préstamos App - Frontend
