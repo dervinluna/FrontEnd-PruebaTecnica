@@ -2,8 +2,8 @@
 
 <div class="container">
   <div class="mb-3">
-    <label for="prestamoId" class="form-label">Seleccionar Préstamo:</label>
-    <input id="prestamoId" [(ngModel)]="prestamoSeleccionado" type="number" class="form-control" placeholder="Ingrese el ID del préstamo">
+    <label for="prestamoId" class="form-label">Código Préstamo:</label>
+    <input id="prestamoId" [(ngModel)]="prestamoSeleccionado" type="number" class="form-control" placeholder="Ingrese el código del préstamo">
   </div>
 
   <!-- Botones de acciones -->
@@ -16,18 +16,16 @@
     <table class="table table-striped table-bordered">
       <thead class="thead-dark">
         <tr>
-          <th>NO. CUOTA</th>
+          <th>No. Cuota</th>
           <th>Fecha de Pago</th>
           <th>Monto</th>
-          <th>Estado</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let pago of planPagos; let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ pago.fechaPago | date: 'mediumDate' }}</td>
-          <td>{{ pago.monto | currency:'GTQ':'symbol' }}</td>
-          <td>{{ pago.estado }}</td>
+          <td>{{ pago.monto | currency:'Q. ':'symbol' }}</td>
         </tr>
       </tbody>
     </table>

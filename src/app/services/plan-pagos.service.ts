@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PlanPago } from '../models/plan-pagos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,15 @@ export class PlanPagosService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerPlanDePagos(prestamoId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${prestamoId}`);
+  obtenerPlanDePagos(prestamoId: number): Observable<PlanPago[]> {
+    return this.http.get<PlanPago[]>(`${this.apiUrl}/${prestamoId}`);
   }
 
-  generarPlanDePagos(prestamoId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${prestamoId}/generar`, {});
+  generarPlanDePagos(prestamoId: number): Observable<PlanPago[]> {
+    return this.http.post<PlanPago[]>(`${this.apiUrl}/${prestamoId}/generar`, {});
   }
 
-  eliminarPlanDePagos(prestamoId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${prestamoId}/eliminar`);
+  eliminarPlanDePagos(prestamoId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${prestamoId}/eliminar`);
   }
 }
