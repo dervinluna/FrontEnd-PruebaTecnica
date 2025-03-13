@@ -1,0 +1,55 @@
+<h2 class="text-center mt-3">Lista de Préstamos</h2>
+
+<div class="container">
+  <!-- ✅ Botón para abrir modal de agregar -->
+  <button class="btn btn-success mb-3" (click)="abrirModal()">Agregar Préstamo</button>
+
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>DPI</th>
+        <th>Cliente</th>
+        <th>Monto</th>
+        <th>Cuotas</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let prestamo of prestamos">
+        <td>{{ prestamo.id }}</td>
+        <td>{{ prestamo.dpi }}</td>
+        <td>{{ prestamo.nombreCliente }}</td>
+        <td>{{ prestamo.monto | currency }}</td>
+        <td>{{ prestamo.cuotas }}</td>
+        <td>{{ prestamo.fechaRegistro | date: 'mediumDate' }}</td>
+        <td>
+          <!-- ✅ Botón para abrir modal en modo edición -->
+          <button class="btn btn-warning btn-sm" (click)="abrirModal(prestamo)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarPrestamo(prestamo.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ✅ Modal de Bootstrap -->
+<div class="modal fade" id="prestamoModal" tabindex="-1" aria-labelledby="prestamoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="prestamoModalLabel">
+          {{ prestamoSeleccionado?.id ? 'Editar Préstamo' : 'Agregar Préstamo' }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <app-prestamo-form *ngIf="prestamoSeleccionado !== undefined"
+          [prestamo]="prestamoSeleccionado"
+          (cerrarModal)="cerrarModal()">
+        </app-prestamo-form>
+      </div>
+    </div>
+  </div>
+</div>

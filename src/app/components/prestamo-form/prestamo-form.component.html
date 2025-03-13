@@ -1,0 +1,39 @@
+<h2>{{ prestamo?.id ? 'Editar Préstamo' : 'Agregar Préstamo' }}</h2>
+
+<form [formGroup]="prestamoForm" (ngSubmit)="guardarPrestamo()">
+  <div class="mb-3">
+    <label for="dpi" class="form-label">DPI</label>
+    <input id="dpi" formControlName="dpi" type="text" class="form-control" />
+    <small class="text-danger" *ngIf="prestamoForm.get('dpi')?.invalid && prestamoForm.get('dpi')?.touched">
+      El DPI es obligatorio y debe tener 13 caracteres.
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="nombreCliente" class="form-label">Cliente</label>
+    <input id="nombreCliente" formControlName="nombreCliente" type="text" class="form-control" />
+    <small class="text-danger" *ngIf="prestamoForm.get('nombreCliente')?.invalid && prestamoForm.get('nombreCliente')?.touched">
+      El nombre del cliente es obligatorio.
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="monto" class="form-label">Monto</label>
+    <input id="monto" formControlName="monto" type="number" class="form-control" />
+    <small class="text-danger" *ngIf="prestamoForm.get('monto')?.invalid && prestamoForm.get('monto')?.touched">
+      El monto debe ser mayor a 0.
+    </small>
+  </div>
+
+  <div class="mb-3">
+    <label for="cuotas" class="form-label">Cuotas</label>
+    <input id="cuotas" formControlName="cuotas" type="number" class="form-control" />
+    <small class="text-danger" *ngIf="prestamoForm.get('cuotas')?.invalid && prestamoForm.get('cuotas')?.touched">
+      El número de cuotas debe ser mayor a 0.
+    </small>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="prestamoForm.invalid">
+    {{ prestamo?.id ? 'Actualizar' : 'Agregar' }}
+  </button>
+</form>
