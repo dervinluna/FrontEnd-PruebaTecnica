@@ -19,10 +19,10 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.prestamoForm = this.fb.group({
-      dpi: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
-      nombreCliente: ['', Validators.required],
-      monto: ['', [Validators.required, Validators.min(1)]],
-      cuotas: ['', [Validators.required, Validators.min(1)]],
+      dpi: ['', [Validators.required, Validators.pattern('^[0-9]{13}$')]],
+      nombreCliente: ['', [Validators.required, Validators.maxLength(100)]],
+      monto: ['', [Validators.required, Validators.min(100), Validators.max(1000000)]],
+      cuotas: ['', [Validators.required, Validators.min(1), Validators.max(360)]],
     });
 
     // Si el formulario recibe un préstamo, lo llenamos
@@ -40,10 +40,10 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
       } else {
         //  Si no hay un préstamo (modo agregar), restablecemos el formulario
         this.prestamoForm.reset();
+        this.prestamoForm.markAsPristine(); // Resetea el estado del formulario
       }
     }
   }
-
 
   guardarPrestamo(): void {
     if (this.prestamoForm.valid) {

@@ -1,39 +1,66 @@
-<h2>{{ prestamo?.id ? 'Editar Préstamo' : 'Agregar Préstamo' }}</h2>
-
 <form [formGroup]="prestamoForm" (ngSubmit)="guardarPrestamo()">
+  <!-- DPI -->
   <div class="mb-3">
     <label for="dpi" class="form-label">DPI</label>
-    <input id="dpi" formControlName="dpi" type="text" class="form-control" />
-    <small class="text-danger" *ngIf="prestamoForm.get('dpi')?.invalid && prestamoForm.get('dpi')?.touched">
-      El DPI es obligatorio y debe tener 13 caracteres.
+    <input id="dpi" formControlName="dpi" type="text" class="form-control"
+      [class.is-invalid]="prestamoForm.get('dpi')?.invalid && prestamoForm.get('dpi')?.touched" />
+    <small class="text-danger" *ngIf="prestamoForm.get('dpi')?.hasError('required') && prestamoForm.get('dpi')?.touched">
+      El DPI es obligatorio.
+    </small>
+    <small class="text-danger" *ngIf="prestamoForm.get('dpi')?.hasError('pattern')">
+      El DPI debe contener exactamente 13 números.
     </small>
   </div>
 
+  <!-- Nombre del Cliente -->
   <div class="mb-3">
     <label for="nombreCliente" class="form-label">Cliente</label>
-    <input id="nombreCliente" formControlName="nombreCliente" type="text" class="form-control" />
-    <small class="text-danger" *ngIf="prestamoForm.get('nombreCliente')?.invalid && prestamoForm.get('nombreCliente')?.touched">
+    <input id="nombreCliente" formControlName="nombreCliente" type="text" class="form-control"
+      [class.is-invalid]="prestamoForm.get('nombreCliente')?.invalid && prestamoForm.get('nombreCliente')?.touched" />
+    <small class="text-danger" *ngIf="prestamoForm.get('nombreCliente')?.hasError('required')">
       El nombre del cliente es obligatorio.
     </small>
   </div>
 
+  <!-- Monto -->
   <div class="mb-3">
     <label for="monto" class="form-label">Monto</label>
-    <input id="monto" formControlName="monto" type="number" class="form-control" />
-    <small class="text-danger" *ngIf="prestamoForm.get('monto')?.invalid && prestamoForm.get('monto')?.touched">
-      El monto debe ser mayor a 0.
+    <input id="monto" formControlName="monto" type="number" class="form-control"
+      [class.is-invalid]="prestamoForm.get('monto')?.invalid && prestamoForm.get('monto')?.touched" />
+    <small class="text-danger" *ngIf="prestamoForm.get('monto')?.hasError('required')">
+      El monto es obligatorio.
+    </small>
+    <small class="text-danger" *ngIf="prestamoForm.get('monto')?.hasError('min')">
+      El monto debe ser mayor o igual a Q.100.
+    </small>
+    <small class="text-danger" *ngIf="prestamoForm.get('monto')?.hasError('max')">
+      El monto no puede ser mayor a Q.1,000,000.
     </small>
   </div>
 
+  <!-- Cuotas -->
   <div class="mb-3">
     <label for="cuotas" class="form-label">Cuotas</label>
-    <input id="cuotas" formControlName="cuotas" type="number" class="form-control" />
-    <small class="text-danger" *ngIf="prestamoForm.get('cuotas')?.invalid && prestamoForm.get('cuotas')?.touched">
-      El número de cuotas debe ser mayor a 0.
+    <input id="cuotas" formControlName="cuotas" type="number" class="form-control"
+      [class.is-invalid]="prestamoForm.get('cuotas')?.invalid && prestamoForm.get('cuotas')?.touched" />
+    <small class="text-danger" *ngIf="prestamoForm.get('cuotas')?.hasError('required')">
+      El número de cuotas es obligatorio.
+    </small>
+    <small class="text-danger" *ngIf="prestamoForm.get('cuotas')?.hasError('min')">
+      Las cuotas deben ser al menos 1.
+    </small>
+    <small class="text-danger" *ngIf="prestamoForm.get('cuotas')?.hasError('max')">
+      Las cuotas no pueden ser mayores a 360.
     </small>
   </div>
 
+  <!-- Botón de envío -->
   <button type="submit" class="btn btn-primary" [disabled]="prestamoForm.invalid">
     {{ prestamo?.id ? 'Actualizar' : 'Agregar' }}
   </button>
+
+  <!-- Mensaje de error si el formulario es inválido -->
+  <small class="text-danger d-block mt-2" *ngIf="prestamoForm.invalid && prestamoForm.touched">
+    Corrige los errores antes de continuar.
+  </small>
 </form>
