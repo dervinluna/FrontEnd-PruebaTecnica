@@ -148,7 +148,7 @@ Este frontend se conecta al backend en ASP.NET Core a través de los siguientes 
 ---
 
 ## 📌 **Contacto**
-Si tienes dudas, puedes escribirme a [tu_email@dominio.com] o en [GitHub](https://github.com/dervinluna). 🚀
+Si tienes dudas, puedes escribirme a [dervinardanihernandezluna2001@gmail.com] o en [GitHub](https://github.com/dervinluna). 🚀
 
 ---
 ✨ **¡Listo! Ahora los evaluadores podrán ejecutar y probar tu frontend fácilmente!** 🚀🔥
