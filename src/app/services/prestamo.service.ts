@@ -28,7 +28,8 @@ export class PrestamoService {
   }
 
 
-  eliminarPrestamo(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  eliminarPrestamo(id: number): Observable<{ mensaje: string }> {
+    return this.http.delete<{ mensaje: string }>(`${this.apiUrl}/${id}`);
   }
+
 }

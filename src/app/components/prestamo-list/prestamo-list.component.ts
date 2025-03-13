@@ -27,11 +27,21 @@ export class PrestamoListComponent implements OnInit {
 
   eliminarPrestamo(id: number): void {
     if (confirm('¿Estás seguro de eliminar este préstamo?')) {
-      this.prestamoService.eliminarPrestamo(id).subscribe(() => {
-        this.cargarPrestamos();
+      this.prestamoService.eliminarPrestamo(id).subscribe({
+        next: (response) => {
+          console.log('Respuesta al eliminar:', response);
+          alert(response.mensaje); // ✅ Ahora no dará error
+          this.prestamos = this.prestamos.filter(prestamo => prestamo.id !== id);
+        },
+        error: (error) => {
+          console.error('Error al eliminar:', error);
+          alert(error.error?.mensaje || 'Error al eliminar el préstamo.');
+        }
       });
     }
   }
+
+
 
   // Método para abrir el modal y asignar datos si es edición
   abrirModal(prestamo?: Prestamo): void {
