@@ -32,7 +32,7 @@ export class PrestamoListComponent implements OnInit {
     }
   }
 
-  // ✅ Método para abrir el modal y asignar datos si es edición
+  // Método para abrir el modal y asignar datos si es edición
   abrirModal(prestamo?: Prestamo): void {
     this.prestamoSeleccionado = prestamo ? { ...prestamo } : null;
 
@@ -45,7 +45,7 @@ export class PrestamoListComponent implements OnInit {
   }
 
 
-  // ✅ Método para cerrar el modal y actualizar la lista
+  // Método para cerrar el modal y actualizar la lista
   cerrarModal(): void {
     this.prestamoSeleccionado = null;
     const modalElement = document.getElementById('prestamoModal');

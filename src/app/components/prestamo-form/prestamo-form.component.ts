@@ -30,14 +30,14 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
     }
   }
 
-  // ✅ Detecta cambios cuando `prestamo` cambia desde `prestamo-list`
+  // Detecta cambios cuando `prestamo` cambia desde `prestamo-list`
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['prestamo']) {
       if (this.prestamo) {
-        // ✅ Si hay un préstamo, llenamos el formulario con sus datos
+        // Si hay un préstamo, llenamos el formulario con sus datos
         this.prestamoForm.patchValue(this.prestamo);
       } else {
-        // ✅ Si no hay un préstamo (modo agregar), restablecemos el formulario
+        //  Si no hay un préstamo (modo agregar), restablecemos el formulario
         this.prestamoForm.reset();
       }
     }

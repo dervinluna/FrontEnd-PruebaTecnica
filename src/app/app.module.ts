@@ -7,6 +7,7 @@ import { PrestamoListComponent } from './components/prestamo-list/prestamo-list.
 import { PrestamoFormComponent } from './components/prestamo-form/prestamo-form.component';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -14,7 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     PrestamoListComponent,
     PrestamoFormComponent,
-    PostsListComponent
+    PostsListComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
