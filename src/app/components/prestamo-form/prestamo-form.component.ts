@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChange
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PrestamoService } from '../../services/prestamo.service';
 import { Prestamo } from '../../models/prestamo.model';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-prestamo-form',
@@ -15,7 +16,11 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
 
   prestamoForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private prestamoService: PrestamoService) {}
+  constructor(
+    private fb: FormBuilder,
+    private prestamoService: PrestamoService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.prestamoForm = this.fb.group({
@@ -31,16 +36,13 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
     }
   }
 
-  // Detecta cambios cuando `prestamo` cambia desde `prestamo-list`
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['prestamo']) {
       if (this.prestamo) {
-        // Si hay un préstamo, llenamos el formulario con sus datos
         this.prestamoForm.patchValue(this.prestamo);
       } else {
-        //  Si no hay un préstamo (modo agregar), restablecemos el formulario
         this.prestamoForm.reset();
-        this.prestamoForm.markAsPristine(); // Resetea el estado del formulario
+        this.prestamoForm.markAsPristine();
       }
     }
   }
@@ -50,14 +52,24 @@ export class PrestamoFormComponent implements OnInit, OnChanges {
       const prestamo: Prestamo = { ...this.prestamoForm.value, id: this.prestamo?.id };
 
       if (this.prestamo?.id) {
-        this.prestamoService.actualizarPrestamo(prestamo).subscribe(() => {
-          alert('Préstamo actualizado con éxito');
-          this.cerrarModal.emit();
+        this.prestamoService.actualizarPrestamo(prestamo).subscribe({
+          next: () => {
+            this.notificationService.showNotification('✅ Préstamo actualizado con éxito.', 'success');
+            this.cerrarModal.emit();
+          },
+          error: () => {
+            this.notificationService.showNotification('❌ Error al actualizar el préstamo.', 'danger');
+          }
         });
       } else {
-        this.prestamoService.agregarPrestamo(prestamo).subscribe(() => {
-          alert('Préstamo agregado con éxito');
-          this.cerrarModal.emit();
+        this.prestamoService.agregarPrestamo(prestamo).subscribe({
+          next: () => {
+            this.notificationService.showNotification('✅ Préstamo agregado con éxito.', 'success');
+            this.cerrarModal.emit();
+          },
+          error: () => {
+            this.notificationService.showNotification('❌ Error al agregar el préstamo.', 'danger');
+          }
         });
       }
     }

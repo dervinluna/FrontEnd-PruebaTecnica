@@ -16,7 +16,7 @@ export class PrestamoListComponent implements OnInit {
 
   constructor(
     private prestamoService: PrestamoService,
-    private notificationService: NotificationService // 🔔 Inyectamos el servicio
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -33,12 +33,12 @@ export class PrestamoListComponent implements OnInit {
     if (confirm('¿Estás seguro de eliminar este préstamo?')) {
       this.prestamoService.eliminarPrestamo(id).subscribe({
         next: (response) => {
-          this.notificationService.showNotification('Préstamo eliminado con éxito.', 'success'); // 🔔 Notificación de éxito
+          this.notificationService.showNotification('Préstamo eliminado con éxito.', 'success');
           this.prestamos = this.prestamos.filter(prestamo => prestamo.id !== id);
         },
         error: (error) => {
           console.error('Error al eliminar:', error);
-          this.notificationService.showNotification('Error al eliminar el préstamo.', 'danger'); // 🔔 Notificación de error
+          this.notificationService.showNotification('Error al eliminar el préstamo.', 'danger');
         }
       });
     }
