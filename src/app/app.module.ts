@@ -5,23 +5,25 @@ import { AppComponent } from './app.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PrestamoListComponent } from './components/prestamo-list/prestamo-list.component';
 import { PrestamoFormComponent } from './components/prestamo-form/prestamo-form.component';
+import { PostsListComponent } from './components/posts-list/posts-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // ✅ Importar Bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     PrestamoListComponent,
-    PrestamoFormComponent
+    PrestamoFormComponent,
+    PostsListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    NgbModule // ✅ Agregar aquí
+    NgbModule
   ],
   providers: [
-    provideHttpClient(withInterceptorsFromDi()) // ✅ Nueva forma de importar HttpClient
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]
 })
